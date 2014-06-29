@@ -682,7 +682,60 @@ input[type="submit"] {
   background: white;
 }
 
-/* line 8, ../sass/main.scss */
+/* line 1, ../sass/comment.scss */
+.comment {
+  display: table;
+  width: 100%;
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+}
+/* line 16, ../sass/comment.scss */
+.comment .comment-image,
+.comment .comment-content {
+  display: table-cell;
+  vertical-align: top;
+}
+/* line 22, ../sass/comment.scss */
+.comment .comment-image {
+  padding-right: 1.4em;
+}
+/* line 25, ../sass/comment.scss */
+.comment .comment-image > img {
+  width: 4em;
+  height: auto;
+  border-radius: 0.1875em;
+  padding: 0.7em;
+  background: #82a7db;
+  display: block;
+  max-width: none;
+}
+/* line 35, ../sass/comment.scss */
+.comment-reverse-order .comment .comment-image {
+  padding-right: 0;
+  padding-left: 10px;
+}
+/* line 41, ../sass/comment.scss */
+.comment .comment-content {
+  width: 100%;
+}
+/* line 44, ../sass/comment.scss */
+.comment .comment-content h1 {
+  font-size: 1em;
+  margin-bottom: .5em;
+}
+/* line 49, ../sass/comment.scss */
+.comment .comment-content p {
+  margin-bottom: .5em;
+}
+/* line 53, ../sass/comment.scss */
+.comment .comment-content p.comment-detail {
+  font-style: italic;
+  font-size: .9em;
+  color: rgba(51, 51, 51, 0.5);
+}
+
+/* line 9, ../sass/main.scss */
 .header {
   max-width: 68em;
   margin-left: auto;
@@ -695,7 +748,21 @@ input[type="submit"] {
   clear: both;
 }
 
-/* line 12, ../sass/main.scss */
+/* line 13, ../sass/main.scss */
+.comment {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+/* line 15, ../sass/bourbon/addons/_clearfix.scss */
+.comment:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 18, ../sass/main.scss */
 .pwndoralogo {
   max-width: 400px;
   height: 10em;

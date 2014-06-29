@@ -4,9 +4,15 @@
 @import 'base/variables';
 @import 'base/base';
 @import 'griditems';
+@import 'comment';
 
 .header {
     @include outer-container;
+}
+
+.comment {
+    @include outer-container;
+    margin-top: 50px;
 }
 
 .pwndoralogo {
