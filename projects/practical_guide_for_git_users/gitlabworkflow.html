@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GitLab工作流程 &mdash; Practical guide for git users 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Practical guide for git users 0.1 documentation" href="index.html"/>
+        <link rel="next" title="參考資料" href="references.html"/>
+        <link rel="prev" title="GitLab介紹" href="gitlab.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Practical guide for git users</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">安裝說明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configurations.html">Git基本設定</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configurations.html#first-thing-first">First thing first.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configurations.html#push">設定預設的推送(Push)模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configurations.html#id1">設定不需版本控制的檔案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configurations.html#gitdiff">設定Git預設所使用的diff演算法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configurations.html#id3">設定好用的Git指令縮寫</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configurations.html#id4">其他</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Git必懂指令</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#id2">單人開發模式 - 新增篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#id4">單人開發模式 - 修改篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#id5">單人開發模式 - 刪除篇</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#id6">單人開發模式 - 刪除Git日誌中的資料</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#id7">多人合作開發模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands.html#ssh">多人合作開發模式 - 設定SSH金鑰認證</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="branchingmodel.html">Git flow 分支策略</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="branchingmodel.html#master">主分支(Master)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="branchingmodel.html#feature-release-hotfix">支援分支(feature, release, hotfix)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gitlab.html">GitLab介紹</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html#self-hosted-git-management-software">Self hosted Git management software</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">GitLab工作流程</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">建立新專案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">匯入公鑰</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">開放專案</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">參考資料</a></li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Practical guide for git users</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>GitLab工作流程</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/gitlabworkflow.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="gitlab">
+<h1>GitLab工作流程<a class="headerlink" href="#gitlab" title="Permalink to this headline">¶</a></h1>
+<p>GitLab的工作流程其實與前述所提到的多人合作開發模式相差無幾。</p>
+<p>以下是直接引述GitLab所提供之 GitLab Workflow ：</p>
+<ol class="arabic">
+<li><p class="first">Clone project</p>
+<div class="highlight-python"><div class="highlight"><pre>$ git clone git@example.com:project-name.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create branch with your feature</p>
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout -b $feature_name
+</pre></div>
+</div>
+</li>
+<li><p class="first">Write code. Commit changes</p>
+<div class="highlight-python"><div class="highlight"><pre>$ git commit -am &quot;My feature is ready&quot;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Push your branch to GitLab</p>
+<div class="highlight-python"><div class="highlight"><pre>$ git push origin $feature_name
+</pre></div>
+</div>
+</li>
+<li><p class="first">Review your code on Commits page</p>
+</li>
+<li><p class="first">Create a merge request</p>
+</li>
+<li><p class="first">Your team lead will review code &amp; merge it to main branch</p>
+</li>
+</ol>
+<p>事實上，就這麼簡單。</p>
+<p>以下主要補充使用GitLab需要注意的地方。</p>
+<div class="section" id="id1">
+<h2>建立新專案<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">介面操作1，新增專案</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="_images/create_project1.png"><img alt="_images/create_project1.png" src="_images/create_project1.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">介面操作2，輸入專案名稱</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="_images/create_project2.png"><img alt="_images/create_project2.png" src="_images/create_project2.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">介面操作3，新增完成(紅框部份需修改)</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="_images/create_project3.png"><img alt="_images/create_project3.png" src="_images/create_project3.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>完成上述3個步驟之後，其實只是在資料庫中建立專案的資料而已，並非在GitLab的檔案系統內建立一個新的專案資料夾，因此GitLab也分別針對全新專案及既有專案兩種情況，提供了一些指令說明如何建立專案資料夾。</p>
+<ul>
+<li><p class="first">建立新儲存庫</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir myfirstproject
+cd myfirstproject
+git init
+touch README
+git add README
+git commit -m &#39;first commit&#39;
+git remote add origin git@10.2.0.15:your_account/myfirstproject.git
+git push -u origin master
+</pre></div>
+</div>
+</li>
+<li><p class="first">匯入既有專案</p>
+<div class="highlight-python"><div class="highlight"><pre>cd existing_git_repo
+git remote add origin git@10.2.0.15:your_account/myfirstproject.git
+git push -u origin master
+</pre></div>
+</div>
+</li>
+</ul>
+<p>上述指令若GitLab安裝過程無誤，是可以良好運作的，如有任何問題，大多是網路環境(GitLab Server裝於VM內或使用NAT等原因)，這些情況就得更改上述指令才能運作。</p>
+</div>
+<div class="section" id="id2">
+<h2>匯入公鑰<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">介面操作1</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="_images/import_pubkey1.png"><img alt="_images/import_pubkey1.png" src="_images/import_pubkey1.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">介面操作2</p>
+<blockquote>
+<div><div class="figure align-center">
+<a class="reference internal image-reference" href="_images/import_pubkey2.png"><img alt="_images/import_pubkey2.png" src="_images/import_pubkey2.png" style="width: 600px;" /></a>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>開放專案<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>預設的專案是不開放的(private)，所以是無法被其他人(除了Team, Group成員之外)知道這個專案的存在。如果想開放專案給所有人看到，請參照以下操作。</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/public_access.png"><img alt="_images/public_access.png" src="_images/public_access.png" style="width: 600px;" /></a>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="references.html" class="btn btn-neutral float-right" title="參考資料"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gitlab.html" class="btn btn-neutral" title="GitLab介紹"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, PwnDora.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
