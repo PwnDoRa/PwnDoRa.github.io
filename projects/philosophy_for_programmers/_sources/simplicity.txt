@@ -1,0 +1,154 @@
+良好程式設計原則－以簡馭繁
+====================================
+
+任何一種應用程式或系統，從設計、開發、測試到上線維護，無論哪一個階段都需要人力與資源的投入。因此，在成本投入與效益回收的考量上，我們不願意應用程式或系統開發最後以失敗收場，並且會希望盡可能地延長應用程式或系統之生命年限。
+
+姑且不論應用程式或系統開發是否符合使用者的需求與期望，我們面臨的根本性問題是－「 **我們該如何設計一個可維護性高並且可持續成長，同時具有合理使用年限的系統？** 」
+
+我想 :doc:`Beauty Is in Simplicity <references/beauty_is_in_simplicity>` 一文給了我們一個漂亮的解答—「 **簡潔(simplicity)** 」。
+
+
+首先必須強調的是，此處所指的「 **簡潔** 」並非指的是「簡單」一詞。嚴格說來，本文的「 **簡潔** 」具備以下原則：
+
+1. **易理解與遵循的結構**
+#. **規則的一致性**
+#. **精確的功能與區塊定義**
+
+我們將用 `Linux CD-ROM 驅動程式 <https://github.com/torvalds/linux/blob/master/drivers/cdrom/cdrom.c>`_ 展示何謂「 **簡潔** 」。
+
+這段程式使用註解記錄作者資訊、程式簡介、版本演進及變更新日誌，這些資訊除了提供我們原作者的聯絡資訊外(可用以詢問程式相關問題)，也使我們清楚地了解程式的用途與具備之功能。此外，程式中亦充滿隨處可見的註解，以供其他開發者與後進參閱學習之用。
+
+這是一個很好的典範。實際上，很多時候我們為了貪圖速度與方便選擇犧牲註解是弊大於利的做法。也許犧牲註解能夠達成開發團隊的短期時程目標，但其實也連帶犧牲了日後的可讀性與維護性。程式碼最終究是要給程式開發人員閱讀與修改的，沒有任何註解的程式碼，其維護與修改成本絕對比起具備註解的程式碼要高上許多，不論從成本投入或是效益回收面來看，這都是毋庸置疑的。
+
+易理解與遵循的結構
+----------------------------
+
+以 Linux CD-ROM 驅動程式為例，我們能夠發現程式具有一種易於理解與遵循的結構，整體而言，我們可以得到以下的結構：
+
+                        +------------+
+                        |程式作者資訊|
+                        +------------+
+                        |程式簡介    |
+                        +------------+
+                        |版本演進資訊|
+                        +------------+
+                        |常數定義    |
+                        +------------+
+                        |標頭檔      |
+                        +------------+
+                        |程式參數設定|
+                        +------------+
+                        |函式        |
+                        +------------+
+                        |主程式      |
+                        +------------+
+
+
+這樣的結構除了讓開發者能夠一目了然之外，也提高了程式創作的可讀性與方便管理性，亦容易使得其他開發者能夠遵循相同的架構，撰寫出具有一定品質的程式。
+
+當然，最重要的是這種架構將使得開發者在養成一種良好習慣的同時，亦會不自覺地思考該將程式碼的哪些部分萃取出來放置於適當的區塊之中，提升整體程式碼的彈性，例如：改變程式功能時只需變更部份程式參數設定即可；或者只需變更部份常數定義，就可以改變程式的執行結果等等。
+
+
+規則的一致性
+-------------------------
+
+接著我們可以看到整個程式碼其實依循著一種稱為 Coding Style ( `Linux Coding Style <https://www.kernel.org/doc/Documentation/CodingStyle>`_ ) 的規則來進行撰寫，因此整體的排版使人感到輕鬆舒適，可有效降低開發者厭惡閱讀他人程式碼之情況。
+
+制定良好的 Coding Style 除了增加可讀性之外，其實也能夠間接提升程式碼的品質，例如：
+
+- 我們規定使用大寫名稱作為常數使用，如此一來我們就能夠迅速區別常數與一般變數
+
+- 我們規定編輯器最長的行寬為80(或是79)個字元。如此一來，除了能夠徹底利用編輯器分割視窗的功能之外，也能夠增加程式的可讀性，亦可以避免過度冗長的程式碼因為不同的視窗大小而被自動斷行，導致程式碼難以閱讀
+
+- 我們規定 `if else` 區塊一定要使用大括號括住。除了能夠明白標示程式區塊之外，也可避免因為程式區塊錯誤而所造成的資訊安全問題，例如蘋果iOS系統SSL的安全性漏洞(漏洞編號: `CVE-2014-1266 <https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-1266>`_)，即是因為 `if` 如果沒有不加上大括號劃定 `if` 區塊所導致的安全漏洞
+
+- 其他，族繁不及備載
+
+下圖1, 2分別是沒有Coding Style規範的PHP程式碼以及有Coding Style規範的程式碼，兩相比較之下，相信各位會寧願選擇有Coding Style的程式碼。
+
+.. figure:: images/awful_code.png
+    :alt: 糟糕的程式風格
+    :align: center
+
+    圖1. 糟糕的程式風格
+
+.. figure:: images/better_code.png
+    :alt: 較好的程式風格
+    :align: center
+
+    圖2. 較好的程式風格
+
+上圖1的程式其實在真實的世界中正不斷地上演，其中的PHP程式有許多問題，例如SQL語法過長、未經過最佳化、註解過少及使用 global 變數取代參數等問題(這些問題不在本文探討範圍)。但基本上經過排版 Coding Style 等規範調整之後，確實變得親切可人多了，也得到了可讀性與維護性的提升。因此團隊合作撰寫程式碼時，確實需要遵守「規則的一致性」，將對他人可能造成的困擾降至最低，並使得程式碼具有可讀性與維護性，以避免將所投資的時間金錢等成本浪費在品質低落的程式碼上，造成無形中的損失。
+
+關於各種語言的 Coding Style，Mozilla 已經非常佛心地整理並公開了一些他們所使用的 `Coding Style 文件 <https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style>`_ 與最佳實務(Best Practice)給大家參考，各位也能夠多方觀摩其他網路上所公開的 Coding Style 並且制定屬於自己團隊的 Coding Style。
+
+此外，對於任何想養成程式撰寫好習慣與寫出符合一般 Coding Style 規範來避免各種常見錯誤的語法的程式開發新手，都可以透過網路搜尋引擎搜索「程式語言名稱 ＋ Lint」，尋找一些好用的程式碼檢查工具，來幫助自己檢視程式撰寫中可能犯了哪些常見的不良習慣，例如： PHPLint、JSLint及Python Flake8 Lint(需使用Sublime Text 編輯器) 等等。
+
+
+精確的功能與區塊定義
+-----------------------------------
+
+「任何偉大的建築，都是從一塊磚頭開始疊起的」
+
+也許我們無法控制系統因時間與需求的演變，但我們至少能夠確保每一塊的程式碼，都是一塊品質良好的磚頭。
+
+蓋房子不是每個人都可以有的經驗，但玩過樂高積木的人肯定比蓋房子的人多！舉以樂高積木為例，每一個令人感到驚豔的樂高積木作品，一定是由許多塊樂高積木所組成。在每一塊樂高積木上，我們皆可以發現一些特性：
+
+1. **形狀簡單，除了基本的幾何形狀外，少有特殊變化**
+
+2. **積木間接合處規格統一與簡潔，每塊積木都可以輕易地結合其他積木或讓其他積木跟自身結合**
+
+這些簡單的積木依據不同的任務與性質彼此相結合將可達成完美的成就。例如蓋建築物時，我們需要屋頂、樑柱、窗戶及地板等不同屬性的積木與任務，這些建築時的任務被精確地定義且實作，彼此間完美且有創意地相互結合後，令人驚豔的作品就出現了。更進一步來說，形狀簡單，代表的就是功能簡潔與定義精確，每一塊積木僅僅負責一種功能，只做一件事，不做其他事。而積木間接合處規格統一、簡單，代表積木之間的合作是有效率的，整合成本是低的。
+
+同樣的概念也能夠運用於專案開發。以Linux kernel 中的 `drivers/cdrom.c <https://github.com/torvalds/linux/blob/master/drivers/cdrom/cdrom.c>`_ 為例，從下圖中，可看到 `cdrom.c <https://github.com/torvalds/linux/blob/master/drivers/cdrom/cdrom.c>`_ 程式被拆解成許多簡單的函式，每一個函式就只負責一件跟 cdrom 有關的事情。因此，開發者若要處理有關 cdrom 的相關事宜，便很容易從中找到關鍵的程式碼並進行修改。
+
+.. figure:: images/cdrom.png
+    :alt: cdrom.c 程式碼片段
+    :align: center
+
+    圖3. cdrom.c 程式碼片段
+
+不僅如此，Linux kernel也做了很多跟其他硬體(bluetooth、macintosh)溝通的事，而這些相同任務性質的程式碼就被歸類在 drivers 資料夾底下。
+
+.. figure:: images/drivers.png
+    :alt: drivers 資料夾
+    :align: center
+
+    圖4. drivers 資料夾
+
+當然，Linux kernel中不僅僅只有 drivers ，它也有針對其他任務性質而開發的程式，比如說 security 等等。這些依據不同任務性質所開發的程式在一定制度下整合起來後，便成為一個完整而精巧的 Linux kernel 。
+
+.. figure:: images/arch.png
+    :alt: 簡潔的程式資料夾架構
+    :align: center
+
+    圖5. 簡潔的程式資料夾架構
+
+自下而上，我們可看到 Linux kernel 的最小元素就是目標明確且簡單的函式，這些函式透過統一性規格將彼此綿密結合、協同運作。由上而下， Linux kernel 以任務導向精確定義來切割不同功能，一層層向下進行任務簡化，若以組織來比喻，就是讓一個人專心做好一件事。這正與本文中所提到的概念相互呼應，也是Linux作業系統能歷久不衰、歷久彌新的重要因素之一。
+
+談到良好程式設計的原則，不免要以 The Zen of Python 作為總結，希望大家在看完本文之後能夠對良好程式設計有一番基礎的認識，並時時督促自己往更高更美好的程式設計之道邁進。
+
+**The Zen of Python**, by Tim Peters
+
+|    Beautiful is better than ugly.
+|    Explicit is better than implicit.
+|    Simple is better than complex. 
+|    Complex is better than complicated. 
+|    Flat is better than nested.
+|    Sparse is better than dense. 
+|    Readability counts.
+|    Special cases aren't special enough to break the rules.
+|    Although practicality beats purity.
+|    Errors should never pass silently.
+|    Unless explicitly silenced.
+|    In the face of ambiguity, refuse the temptation to guess.
+|    There should be one-- and preferably only one --obvious way to do it.
+|    Although that way may not be obvious at first unless you're Dutch.
+|    Now is better than never.
+|    Although never is often better than *right* now.
+|    If the implementation is hard to explain, it's a bad idea.
+|    If the implementation is easy to explain, it may be a good idea.
+|    Namespaces are one honking great idea -- let's do more of those!
+|
+|
+|
