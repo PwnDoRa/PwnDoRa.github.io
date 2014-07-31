@@ -735,11 +735,22 @@ input[type="submit"] {
   color: rgba(51, 51, 51, 0.5);
 }
 
-/* line 9, ../sass/main.scss */
+/* line 10, ../sass/main.scss */
 .header {
   max-width: 68em;
   margin-left: auto;
   margin-right: auto;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: box;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-orient: horizontal;
+  -webkit-box-align: stretch;
+  -moz-box-align: stretch;
+  box-align: stretch;
+  -ms-flex-align: stretch;
 }
 /* line 15, ../sass/bourbon/addons/_clearfix.scss */
 .header:after {
@@ -748,7 +759,7 @@ input[type="submit"] {
   clear: both;
 }
 
-/* line 13, ../sass/main.scss */
+/* line 17, ../sass/main.scss */
 .comment {
   max-width: 68em;
   margin-left: auto;
@@ -762,8 +773,25 @@ input[type="submit"] {
   clear: both;
 }
 
-/* line 18, ../sass/main.scss */
+/* line 22, ../sass/main.scss */
 .pwndoralogo {
   max-width: 400px;
   height: 10em;
+}
+
+/* line 30, ../sass/main.scss */
+h1 {
+  font-family: 'PT Serif', serif;
+}
+
+/* line 34, ../sass/main.scss */
+p {
+  font-family: 'Droid Serif', serif;
+}
+
+/* line 38, ../sass/main.scss */
+#sologan > h1 {
+  padding-left: 40px;
+  padding-top: 45px;
+  font-family: 'Playfair Display SC', serif;
 }

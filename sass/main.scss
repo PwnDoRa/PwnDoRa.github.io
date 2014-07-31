@@ -1,3 +1,4 @@
+@import 'compass/css3';
 @import 'bourbon/bourbon';
 @import 'neat/neat';
 @import 'base/grid-settings';
@@ -8,6 +9,9 @@
 
 .header {
     @include outer-container;
+    @include display-box;
+    @include box-orient(horizontal);
+    @include box-align(stretch);
 }
 
 .comment {
@@ -18,4 +22,21 @@
 .pwndoralogo {
     max-width: 400px;
     height: 10em;
+}
+
+#logo {
+}
+
+h1 {
+    font-family: 'PT Serif', serif;
+}
+
+p {
+    font-family: 'Droid Serif', serif;
+}
+
+#sologan > h1 {
+    padding-left: 40px;
+    padding-top: 45px;
+    font-family: 'Playfair Display SC', serif;
 }
